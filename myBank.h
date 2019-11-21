@@ -14,3 +14,9 @@ int add_interest(double interst);
 int print_open_account();
 
 int close_all();
+
+int checkAmount(int amount);
+
+int checkNumAccount(int account_num);
+
+double toTwoDigits( double amount);
