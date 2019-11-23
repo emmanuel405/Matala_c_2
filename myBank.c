@@ -1,5 +1,6 @@
 // BASAD
 #include <stdio.h>
+#include "myBank.h"
 #define sumAccounts 50
 #define diffArrFromAccounts 901
 
