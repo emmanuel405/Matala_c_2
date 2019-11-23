@@ -1,6 +1,10 @@
 // BASAD
+#include <stdio.h>
+#define numAccounts 50
 
-double accounts[50][2] = {0};
+
+
+double accounts[numAccounts][2] = {0};
 int sizeAccounts = 0;
 int sizeOpenAccounts = 0;
 
