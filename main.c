@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 #include "myBank.h"
 
 int main(){
@@ -17,6 +18,7 @@ if(scanf("%c", &clientChoice) != 1){
 else{
 switch (clientChoice)
 {
+    while (clientChoice != 'E'){
     case 'O':
     printf("Initial deposit?\n");
     if(scanf("%lf", &numOfAmount) == 1){
@@ -74,7 +76,7 @@ switch (clientChoice)
     case 'P':
     print_open_account();
     break;
-
+    }
     // close_all
     case 'E':
     close_all();
