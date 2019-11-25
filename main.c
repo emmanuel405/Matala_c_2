@@ -12,7 +12,7 @@ scanf("%c", &clientChoice);
 
 switch (clientChoice)
 {
-case 'O':
+    case 'O':
     printf("Initial deposit?");
     scanf("%lf" &numOfAmount);
     open_account(numOfAmount);
@@ -68,7 +68,7 @@ case 'O':
     close_all{};
     break;
 
-default:
+    default:
     printf("Sorry' we don't understand what are you want.\n
     If you want to open an account, press 'O'\n
     If you want to check how mush you have in your account, press 'B'\n
@@ -79,4 +79,5 @@ default:
     Thank you. the Bank");
 
 }
+
 }
