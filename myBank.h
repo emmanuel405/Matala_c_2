@@ -1,22 +1,22 @@
 
-int open_account(double amount);
+void open_account(double amount);
 
-int rest(int account_num);
+void rest(int account_num);
 
-int depositing_money(int account_num, double amount);
+void depositing_money(int account_num, double amount);
 
-int withrawal_money(int account_num, double amount);
+void withrawal_money(int account_num, double amount);
 
-int close_account(int ccount_num);
+void close_account(int ccount_num);
 
-int add_interest(double interst);
+void add_interest(double interst);
 
-int print_open_account();
+void print_open_account();
 
-int close_all();
+void close_all();
 
-int checkAmount(int amount);
+int isPosAmount(int amount);
 
-int checkNumAccount(int account_num);
+int isRealNumAccount(int account_num);
 
 double toTwoDigits( double amount);

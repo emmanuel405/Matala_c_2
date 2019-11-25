@@ -2,30 +2,36 @@
 #include <stdio.h>
 #include <math.h>
 #include "myBank.h"
-#define sumAccounts 50
-#define diffArrFromAccounts 901
+#define SumAccounts 50
+#define DiffArrFromAccounts 901
+#define Rest  0
+#define Status 1
+#define True 1
+#define False 0
+#define Close 0
+#define Open 1
 
 
 // Per account has two cells, the first for the rest and the second for account status: 0- close, 1- open.
-double accounts[sumAccounts][2] = {0}; 
+double accounts[SumAccounts][2] = {0}; 
 int sizeAccounts = 0;
 int sizeOpenAccounts = 0;
 
-int checkNumAccount(int account_num){
+int isRealNumAccount(int account_num){
        if (account_num > 950 || account_num < 901)
     {
         printf("Account number %d not exist\n", account_num);
-        return 1;
+        return False;
     }
-    return 0;
+    return True;
 }
 
-int checkAmount(int amount){
+int isPosAmount(int amount){
     if(amount < 0){
          printf("The amount negative\n");
-         return 1;
+         return  False;
     }
-    return 0;
+    return True;
 
 }
 double toTwoDigits( double amount){
@@ -34,102 +40,88 @@ double toTwoDigits( double amount){
 
 
 
-open_account(double amount){
-     if(checkAmount(amount)){
-        return;
-    }
-    if (sizeAccounts < sumAccounts){
-        accounts[sizeAccounts][0] = toTwoDigits(amount);
-        accounts[sizeAccounts][1] = 1;
-        printf("This is your account number: %d\n" ,(sizeAccounts+diffArrFromAccounts));
-        sizeAccounts++; sizeOpenAccounts++;
-    }
-    else{
-        if (sizeOpenAccounts < sumAccounts){
+void open_account(double amount){
+    if(isPosAmount(amount)){
+       if (sizeOpenAccounts < SumAccounts){
             for(int i=0; i<sizeAccounts; i++){
-                if (accounts[i][1] == 0){
-                     accounts[i][0] = toTwoDigits(amount);
-                     accounts[i][1] = 1;
-                     printf("This is your account number: %d\n" ,(sieAccount+diffArrFromAccounts));
+                if (accounts[i][Status] == Close){
+                     accounts[i][Rest] = toTwoDigits(amount);
+                     accounts[i][Status] = Open;
+                     printf("This is your account number: %d\n" ,(i+DiffArrFromAccounts));
                      sizeOpenAccounts++;
+                     sizeAccounts++;
                 }
             }
+       }
+        else{
+             printf("Sorry, the bank is full, go away !!\n");
         }
     }
-    else{
-        printf("Sorry, the bank is full, go away !!\n");
+}
+
+void rest(int account_num){
+     if(isRealNumAccount(account_num)){
+         printf("Your rest: %lf\n", accounts[account_num-DiffArrFromAccounts][Rest]);
+     }
+}
+
+void depositing_money(int account_num, double amount){
+    if(isRealNumAccount(account_num) && isPosAmount(amount)){
+        accounts[account_num-DiffArrFromAccounts][Rest] =toTwoDigits(accounts[account_num-DiffArrFromAccounts][Rest]+ amount);
+        printf("Your rest after the deposition: %lf\n", accounts[account_num-DiffArrFromAccounts][Rest]);
     }
 }
 
-rest(int account_num){
-     if(checkNumAccount(account_num)){
-        return;
-    }
-    printf("Your rest: %lf\n", accounts[account_num-diffArrFromAccounts][0]);
-}
-
-depositing_money(int account_num, double amount){
-    if(checkNumAccount(account_num) || checkAmount(amount)){
-        return;
-    }
-    accounts[account_num-diffArrFromAccounts][0] =toTwoDigits(accounts[account_num-diffArrFromAccounts][0]+ amount);
-    printf("Your rest after the deposition: %lf\n", accounts[account_num-diffArrFromAccounts][0]);
-}
-
-withrawal_money(int account_num, double amount){
-    if(checkNumAccount(account_num) || checkAmount(amount)){
-        return;
-    }
-    if (accounts[account_num-diffArrFromAccounts][0] >= amount){
-        accounts[account_num-diffArrFromAccounts][0] =toTwoDigits(accounts[account_num-diffArrFromAccounts][0]- amount) ;
-        printf("Rest: %lf\n", accounts[account_num-diffArrFromAccounts][0]);
-    }
-    else{
-        printf("Sorry' you don't have enough money in your account\n");
+void withrawal_money(int account_num, double amount){
+    if(isRealNumAccount(account_num) && isPosAmount(amount)){
+        if (accounts[account_num-DiffArrFromAccounts][Rest] >= amount){
+            accounts[account_num-DiffArrFromAccounts][Rest] =toTwoDigits(accounts[account_num-DiffArrFromAccounts][Rest]- amount) ;
+            printf("Rest: %lf\n", accounts[account_num-DiffArrFromAccounts][Rest]);
+        }
+        else{
+            printf("Sorry' you don't have enough money in your account\n");
+        }
     }
 }
 
-close_account(int account_num){
+void close_account(int account_num){
    
-    if(checkNumAccount(account_num)){
-        return;
-    }
-    if (accounts[account_num- diffArrFromAccounts][1]==1)
-    {
-        accounts[account_num- diffArrFromAccounts][1]==0;
-        accounts[account_num- diffArrFromAccounts][0]==0;
-        sizeOpenAccounts--;
-        printf("Account number %d closed\n", account_num);
-    }
-    else
-    {
-        printf("Cant close account number %d because the account was closed\n", account_num);
+    if(isRealNumAccount(account_num)){
+        if (accounts[account_num- DiffArrFromAccounts][Status]==Open){
+            accounts[account_num- DiffArrFromAccounts][Status]==Close;
+            accounts[account_num- DiffArrFromAccounts][Rest]==0;
+            sizeOpenAccounts--;
+            printf("Account number %d closed\n", account_num);
+        }
+        else{
+            printf("Cant close account number %d because the account was closed\n", account_num);
+        }
     }
     
     
 
 }
 
-add_interest(double interest){
+void add_interest(double interest){
     for(int i=0; i<sizeAccounts; i++){
-        if(accounts[i][1] == 1){
-            accounts[i][0] =toTwoDigits(accounts[i][0]+ (interest*accounts[i][0])/100);
+        if(accounts[i][Status] == Open){
+            accounts[i][Rest] =toTwoDigits(accounts[i][Rest]+ (interest*accounts[i][Rest])/100);
         }
     }
 }
 
-print_open_account(){
-    for(int i=0; i<sizeAccounts; i++){
-        if(accounts[i][1]==1){
-            printf("Account number: %d  Rest: %lf\n", i+diffArrFromAccounts, accounts[i][0]);
+void print_open_account(){
+    for(int i=0; i<sizeOpenAccounts; i++){
+        if(accounts[i][Status] == Open){
+            printf("Account number: %d  Rest: %lf\n", i+DiffArrFromAccounts, accounts[i][Rest]);
         }
     }
 }
 
-close_all(){
+void close_all(){
     for(int i=0; i<sizeAccounts; i++){
-        accounts[i][0] = 0;
-        accounts[i][1] = 0;
+        accounts[i][Rest] = 0;
+        accounts[i][Status] = Close;
     }
 }
 
