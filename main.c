@@ -19,49 +19,56 @@ switch (clientChoice)
 {
     case 'O':
     printf("Initial deposit?\n");
-    scanf("%lf", &numOfAmount);
+    if(scanf("%lf", &numOfAmount) == 1){
     open_account(numOfAmount);
     break;
+    }
+    else{ return 1; }
 
     // rest
     case 'B':
     printf("Account number?\n");
-    scanf("%d", &numOfAccount);
+    if(scanf("%d", &numOfAccount) == 1){
     rest(numOfAccount);
     break;
-
+    }
+    else{ return 1; }
     // depositing_money
     case 'D':
     printf("Account number?\n");
-    scanf("%d", &numOfAccount);
+    if(scanf("%d", &numOfAccount) != 1){ return 1; }
     printf("Amount?\n");
-    scanf("%lf", &numOfAmount);
+    if(scanf("%lf", &numOfAmount) != 1){ return 1; }
     depositing_money(numOfAccount, numOfAmount);
     break;
 
     // withrawal_money
     case 'W':
     printf("Account number?\n");
-    scanf("%d", &numOfAccount);
+    if(scanf("%d", &numOfAccount) != 1){ return 1; }
     printf("Amount?\n");
-    scanf("%lf", &numOfAmount);
+    if(scanf("%lf", &numOfAmount) != 1){ return 1; }
     withrawal_money(numOfAccount, numOfAmount);
     break;
 
     // close_account
     case 'C':
     printf("Account number?\n");
-    scanf("%d", &numOfAccount);
+    if(scanf("%d", &numOfAccount) == 1){
     close_account(numOfAccount);
     break;
+    }
+    else { return 1; }
 
     // add_interest
     case 'I':
     printf("Interest rate?\n");
     double interest;
-    scanf("%lf", &interest);
+    if(scanf("%lf", &interest) == 1){
     add_interest(interest);
     break;
+    }
+    else { return 1; }
 
     // print_open_account
     case 'P':
