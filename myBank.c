@@ -35,7 +35,7 @@ int isPosAmount(int amount){
 
 }
 double toTwoDigits( double amount){
-    return floor(100*amount)/100;
+    return ((int)(amount*100))/100.;
 }
 
 
@@ -45,7 +45,7 @@ void open_account(double amount){
        if (sizeOpenAccounts < SumAccounts){
             for(int i=0; i<sizeAccounts; i++){
                 if (accounts[i][Status] == Close){
-                     accounts[i][Rest] = toTwoDigits(amount);
+                     accounts[i][Rest] =toTwoDigits(amount);
                      accounts[i][Status] = Open;
                      printf("This is your account number: %d\n" ,(i+DiffArrFromAccounts));
                      sizeOpenAccounts++;
