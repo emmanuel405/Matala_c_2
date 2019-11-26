@@ -1,6 +1,5 @@
 // BASAD
 #include <stdio.h>
-#include <math.h>
 #include "myBank.h"
 #define SumAccounts 50
 #define DiffArrFromAccounts 901
@@ -62,7 +61,7 @@ void open_account(double amount){
 
 void rest(int account_num){
      if(isRealNumAccount(account_num)){
-         printf("Your rest: %lf\n", accounts[account_num-DiffArrFromAccounts][Rest]);
+         printf("Your rest: %0.2lf\n", accounts[account_num-DiffArrFromAccounts][Rest]);
      }
 }
 
@@ -70,7 +69,7 @@ void depositing_money(int account_num, double amount){
     if(isRealNumAccount(account_num) && isPosAmount(amount)){
         if(accounts[account_num-DiffArrFromAccounts][Status]==Open){
             accounts[account_num-DiffArrFromAccounts][Rest] =toTwoDigits(accounts[account_num-DiffArrFromAccounts][Rest]+ amount);
-            printf("Your rest after the deposition: %lf\n", accounts[account_num-DiffArrFromAccounts][Rest]);
+            printf("Your rest after the deposition: %0.2lf\n", accounts[account_num-DiffArrFromAccounts][Rest]);
         }
         else 
              printf("The accuont number: %d close\n", account_num);
@@ -81,7 +80,7 @@ void withrawal_money(int account_num, double amount){
     if(isRealNumAccount(account_num) && isPosAmount(amount)){
         if (accounts[account_num-DiffArrFromAccounts][Rest] >= amount && accounts[account_num-DiffArrFromAccounts][Status]==Open){
             accounts[account_num-DiffArrFromAccounts][Rest] =toTwoDigits(accounts[account_num-DiffArrFromAccounts][Rest]- amount) ;
-            printf("Rest: %lf\n", accounts[account_num-DiffArrFromAccounts][Rest]);
+            printf("Rest: %0.2lf\n", accounts[account_num-DiffArrFromAccounts][Rest]);
         }
         else{
             printf("Sorry' the accuont number: %d close or  you don't have enough money in your account\n", account_num);
@@ -118,7 +117,7 @@ void add_interest(double interest){
 void print_open_account(){
     for(int i=0; i<sizeAccounts; i++){
         if(accounts[i][Status] == Open){
-            printf("Account number: %d  Rest: %lf\n", i+DiffArrFromAccounts, accounts[i][Rest]);
+            printf("Account number: %d  Rest: %0.2lf\n", i+DiffArrFromAccounts, accounts[i][Rest]);
         }
     }
 }
