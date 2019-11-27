@@ -84,7 +84,7 @@ void withrawal_money(int account_num, double amount){
             printf("Rest: %lf\n", accounts[account_num-DiffArrFromAccounts][Rest]);
         }
         else{
-            printf("Sorry' the accuont number: %d close or  you don't have enough money in your account\n", account_num);
+            printf("Sorry, the account number: %d close, or you don't have enough money in your account\n", account_num);
         }
     }
 }
