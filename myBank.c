@@ -1,7 +1,6 @@
 // BASAD
 #include <stdio.h>
 #include "myBank.h"
-#define SumAccounts 50
 #define DiffArrFromAccounts 901
 #define Rest  0
 #define Status 1
@@ -10,9 +9,7 @@
 #define Close 0
 #define Open 1
 
-
-// Per account has two cells, the first for the rest and the second for account status: 0- close, 1- open.
-double accounts[SumAccounts][2] = {0}; 
+double accounts[SumAccounts][2]={0};
 int sizeAccounts = 0;
 int sizeOpenAccounts = 0;
 
@@ -49,12 +46,12 @@ void open_account(double amount){
                      accounts[i][Rest] =toTwoDigits(amount);
                      accounts[i][Status] = Open;
                      printf("This is your account number: %d\n" ,(i+DiffArrFromAccounts));
-                     
+                     break;
                 }
             }
        }
         else{
-             printf("Sorry, the bank is full, go away !!\n");
+             printf("Sorry, the bank is full!!\n");
         }
     }
 }
